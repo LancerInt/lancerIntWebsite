@@ -29,6 +29,11 @@ import { cn } from "@/lib/utils";
    out 3D engines and heavy bundles explicitly. This is ~2kB of
    component and composites on the GPU anyway.
 
+   The metal tones come from the --metal-* tokens, which flip
+   with prefers-color-scheme: dark steel on a light ground,
+   bright chrome on a dark one. A sphere lit for a near-black
+   page is a white blob on an ivory one.
+
    Hidden from assistive tech — it carries no information.
    Static under reduced motion, where it keeps a fixed
    top-left light and simply stops following.
@@ -93,32 +98,29 @@ export function CursorObject({
       className={cn("relative select-none", className)}
       style={{ width: size, height: size }}
     >
-      {/* ambient bloom cast onto the ground behind */}
-      <div
-        className="absolute -inset-[55%] rounded-full"
-        style={{
-          background: `radial-gradient(circle at ${light.x}% ${light.y}%, rgba(255,255,255,0.10), transparent 62%)`,
-          transition: "background 420ms var(--ease-out-quint)",
-        }}
-      />
-
+      {/* No bloom div. A `rounded-full` element whose gradient
+          fades out before its own edge draws a faint disc around
+          the object — visible, and read as a rendering artefact.
+          The glow lives in the box-shadow below instead, where it
+          is bounded by the sphere itself. */}
       <div
         ref={ref}
         className="relative size-full rounded-full"
         style={{
           background: `
-            radial-gradient(circle at ${rimX}% ${rimY}%, rgba(255,255,255,0.30) 0%, transparent 42%),
+            radial-gradient(circle at ${rimX}% ${rimY}%, var(--sphere-rim) 0%, transparent 42%),
             radial-gradient(circle at ${light.x}% ${light.y}%,
-              #ffffff 0%,
-              #e4e4e4 11%,
-              #9a9a9a 32%,
-              #3d3d3d 62%,
-              #141414 85%,
-              #0a0a0a 100%)
+              var(--metal-hi) 0%,
+              var(--metal-1) 11%,
+              var(--metal-2) 32%,
+              var(--metal-3) 62%,
+              var(--metal-4) 85%,
+              var(--sphere-core) 100%)
           `,
           boxShadow: `
-            0 ${size * 0.3}px ${size * 0.55}px -${size * 0.18}px rgba(0,0,0,0.85),
-            inset 0 0 ${size * 0.12}px rgba(0,0,0,0.5)
+            0 ${size * 0.3}px ${size * 0.55}px -${size * 0.18}px var(--sphere-cast),
+            0 0 ${size * 0.5}px var(--metal-glow),
+            inset 0 0 ${size * 0.12}px var(--metal-shade)
           `,
           transition: "background 420ms var(--ease-out-quint)",
         }}

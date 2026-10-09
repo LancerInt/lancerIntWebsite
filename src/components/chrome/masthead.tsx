@@ -19,9 +19,11 @@ import { MobileMenu } from "./mobile-menu";
    none to advertise, and the panel was the most overstated
    piece of chrome on the site.
 
-   Transparent over the dark hero, ivory and blurred once
-   scrolled. The logo cross-fades between its white and
-   full-colour lockups at the same moment.
+   Transparent over the hero, then its own ground at 80% with
+   a blur once scrolled. It carries data-surface="ink", so in a
+   light scheme that bar is light and in a dark scheme it is
+   dark — the logo and links follow from the same tokens and
+   neither needs a branch.
    ============================================================ */
 
 export function Masthead() {
@@ -40,18 +42,17 @@ export function Masthead() {
 
   return (
     <>
-      {/* Stays dark when scrolled now that the page is a
-          near-black ground. An ivory bar over near-black read
-          as a bright slab rather than chrome — and keeping one
-          surface means the white logo is always correct, so
-          the two-lockup cross-fade is gone with it. */}
+      {/* The scrolled bar is this surface's own ground at 80%,
+          not a fixed colour — an ivory bar over near-black read
+          as a bright slab rather than chrome, and a near-black
+          one over an ivory page would read the same way. */}
       <header
         data-surface="ink"
         className={cn(
           "fixed inset-x-0 top-0 z-100",
           "transition-[background-color,border-color,backdrop-filter] duration-300 ease-out",
           scrolled
-            ? "border-b border-[var(--surface-rule)] bg-ink/80 backdrop-blur-xl backdrop-saturate-150"
+            ? "border-b border-[var(--surface-rule)] bg-[color-mix(in_oklab,var(--surface-bg)_80%,transparent)] backdrop-blur-xl backdrop-saturate-150"
             : "border-b border-transparent bg-transparent",
         )}
         style={scrolled ? undefined : { backgroundColor: "transparent" }}
@@ -63,7 +64,7 @@ export function Masthead() {
             className="shrink-0"
             aria-label={`${siteConfig.name} — home`}
           >
-            <Logo tone="light" priority width="w-[108px] sm:w-[118px]" />
+            <Logo priority width="w-[108px] sm:w-[118px]" />
           </Link>
 
           {/* --- links ------------------------------------- */}
@@ -82,8 +83,10 @@ export function Masthead() {
                       className={cn(
                         "flex min-h-9 items-center rounded-md px-3.5",
                         "font-display text-[0.875rem]",
-                        "transition-opacity duration-200 ease-out",
-                        active ? "opacity-100" : "opacity-70 hover:opacity-100",
+                        "transition-colors duration-200 ease-out",
+                        active
+                          ? "text-[var(--surface-fg)]"
+                          : "text-[var(--surface-muted)] hover:text-[var(--surface-fg)]",
                       )}
                     >
                       {link.label}

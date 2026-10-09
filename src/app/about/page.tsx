@@ -67,7 +67,7 @@ export default function AboutPage() {
                 as="h1"
                 lines={[...about.lines]}
                 accentWord={about.accent}
-                className="text-d1 mt-6 font-display text-vellum"
+                className="text-d1 mt-6 font-display text-[var(--surface-fg)]"
                 lineClassName="pb-[0.02em]"
               />
             </div>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                 {about.paragraphs.map((p, i) => (
                   <p
                     key={i}
-                    className="text-[0.9375rem] leading-[1.7] text-sage"
+                    className="text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]"
                   >
                     {p}
                   </p>
@@ -119,7 +119,7 @@ export default function AboutPage() {
                     {b.title}
                   </h3>
                 </div>
-                <p className="mt-2.5 max-w-[56ch] text-[0.9375rem] leading-[1.7] text-stone">
+                <p className="mt-2.5 max-w-[56ch] text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]">
                   {b.body}
                 </p>
               </Reveal>
@@ -138,7 +138,7 @@ export default function AboutPage() {
             {capabilities.map((c) => (
               <li
                 key={c.index}
-                className="rounded-full border border-[var(--surface-rule)] bg-[var(--surface-panel)] px-4 py-2 text-[0.875rem] text-stone"
+                className="rounded-full border border-[var(--surface-rule)] bg-[var(--surface-panel)] px-4 py-2 text-[0.875rem] text-[var(--surface-muted)]"
               >
                 {c.title}
               </li>
@@ -154,7 +154,7 @@ export default function AboutPage() {
             <h2 className="text-d3 font-display">
               Have a problem worth solving?
             </h2>
-            <p className="mt-2 max-w-[44ch] text-[0.9375rem] text-stone">
+            <p className="mt-2 max-w-[44ch] text-[0.9375rem] text-[var(--surface-muted)]">
               {siteConfig.statement}
             </p>
           </div>

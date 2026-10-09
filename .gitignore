@@ -13,3 +13,6 @@ tsconfig.tsbuildinfo
 
 audit
 audit-*.json
+
+# verification output — screenshots from scripts/audit*.mjs
+audit-shots/

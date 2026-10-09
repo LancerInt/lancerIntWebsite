@@ -49,14 +49,14 @@ export function ProductDirection() {
             as="h2"
             lines={[...productDirection.lines]}
             accentWord={productDirection.accent}
-            className="text-d1 mt-6 font-display text-vellum"
+            className="text-d1 mt-6 font-display text-[var(--surface-fg)]"
             lineClassName="pb-[0.02em]"
           />
 
           <Reveal delay={180}>
             <div className="mt-7 max-w-[48ch] space-y-5">
               {productDirection.paragraphs.map((p, i) => (
-                <p key={i} className="text-[0.9375rem] leading-[1.7] text-sage">
+                <p key={i} className="text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]">
                   {p}
                 </p>
               ))}
@@ -73,7 +73,7 @@ export function ProductDirection() {
         {/* --- what we keep seeing ---------------------- */}
         <Reveal delay={140} className="lg:col-span-5 lg:col-start-8">
           <div className="rounded-2xl border border-dashed border-[var(--surface-rule)] px-6 py-7 sm:px-7">
-            <p className="text-[0.75rem] tracking-[0.14em] text-sage uppercase">
+            <p className="text-[0.75rem] tracking-[0.14em] text-[var(--surface-muted)] uppercase">
               Problems we keep running into
             </p>
 
@@ -85,14 +85,14 @@ export function ProductDirection() {
                     aria-hidden="true"
                     className="mt-[0.45rem] size-[7px] shrink-0 rounded-full border border-[var(--surface-fg)]/40"
                   />
-                  <span className="text-[0.9375rem] leading-[1.6] text-vellum/85">
+                  <span className="text-[0.9375rem] leading-[1.6] text-[var(--surface-fg)]">
                     {theme}
                   </span>
                 </li>
               ))}
             </ul>
 
-            <p className="mt-7 border-t border-dashed border-[var(--surface-rule)] pt-5 text-[0.8125rem] leading-relaxed text-sage">
+            <p className="mt-7 border-t border-dashed border-[var(--surface-rule)] pt-5 text-[0.8125rem] leading-relaxed text-[var(--surface-muted)]">
               Nothing here is a released product. If that changes, this section
               will say so plainly.
             </p>

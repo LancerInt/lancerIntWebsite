@@ -45,12 +45,12 @@ export function Hero() {
               as="h1"
               lines={[...hero.lines]}
               accentWord={hero.accent}
-              className="text-hero mt-6 font-display text-vellum"
+              className="text-hero mt-6 font-display text-[var(--surface-fg)]"
               lineClassName="pb-[0.02em]"
             />
 
             <Reveal delay={400} distance={12}>
-              <p className="text-lead mt-7 max-w-[46ch] text-sage">
+              <p className="text-lead mt-7 max-w-[46ch] text-[var(--surface-muted)]">
                 {hero.body}
               </p>
             </Reveal>
@@ -75,10 +75,7 @@ export function Hero() {
               has something to illustrate. */}
           <div className="flex justify-center lg:col-span-5 lg:justify-end">
             <Reveal delay={220} distance={16}>
-              <CursorMark
-                size={320}
-                className="w-[min(62vw,300px)] lg:w-[320px] xl:w-[360px]"
-              />
+              <CursorMark size={360} />
             </Reveal>
           </div>
         </div>

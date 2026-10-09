@@ -84,7 +84,7 @@ export function MobileMenu({
         >
           <div className="flex h-20 shrink-0 items-center justify-between px-5 sm:px-6">
             <Link href="/" onClick={onClose} aria-label={`${siteConfig.name} — home`}>
-              <Logo tone="light" width="w-[108px]" />
+              <Logo width="w-[108px]" />
             </Link>
 
             <button
@@ -120,7 +120,7 @@ export function MobileMenu({
                     className="flex items-center justify-between gap-4 py-5 font-display text-[1.5rem] leading-none font-medium tracking-[-0.02em]"
                   >
                     {link.label}
-                    <ArrowRight className="size-4 shrink-0 text-sage" />
+                    <ArrowRight className="size-4 shrink-0 text-[var(--surface-muted)]" />
                   </Link>
                 </li>
               ))}
@@ -129,7 +129,7 @@ export function MobileMenu({
             <Link
               href={primaryCta.href}
               onClick={onClose}
-              className="group mt-8 flex min-h-14 items-center justify-between gap-4 rounded-lg bg-[var(--surface-fg)] px-6 text-ink shadow-[var(--btn-lift)]"
+              className="group mt-8 flex min-h-14 items-center justify-between gap-4 rounded-lg bg-[var(--surface-fg)] px-6 text-[var(--surface-bg)] shadow-[var(--btn-lift)]"
             >
               <span className="font-display text-base font-medium">
                 {primaryCta.label}
@@ -137,7 +137,7 @@ export function MobileMenu({
               <ArrowRight className="size-4 shrink-0" />
             </Link>
 
-            <p className="mt-8 text-[0.75rem] tracking-[0.1em] text-sage">
+            <p className="mt-8 text-[0.75rem] tracking-[0.1em] text-[var(--surface-muted)]">
               {siteConfig.statement}
             </p>
           </nav>

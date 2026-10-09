@@ -42,19 +42,19 @@ export default function ContactPage() {
               as="h1"
               lines={[...contact.lines]}
               accentWord={contact.accent}
-              className="text-d1 mt-6 font-display text-vellum"
+              className="text-d1 mt-6 font-display text-[var(--surface-fg)]"
               lineClassName="pb-[0.02em]"
             />
 
             <Reveal delay={200}>
-              <p className="mt-6 max-w-[42ch] text-[0.9375rem] leading-[1.7] text-sage">
+              <p className="mt-6 max-w-[42ch] text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]">
                 {contact.body}
               </p>
             </Reveal>
 
             {/* --- how a project starts ---------------- */}
             <Reveal delay={260}>
-              <p className="mt-12 text-[0.75rem] tracking-[0.14em] text-sage uppercase">
+              <p className="mt-12 text-[0.75rem] tracking-[0.14em] text-[var(--surface-muted)] uppercase">
                 How a project usually starts
               </p>
               <ol className="mt-5 border-t border-[var(--surface-rule)]">
@@ -66,7 +66,7 @@ export default function ContactPage() {
                     <span className="shrink-0 font-display text-[0.75rem] font-medium tracking-[0.1em] text-[var(--surface-muted)]">
                       {step.index}
                     </span>
-                    <span className="text-[0.875rem] text-vellum/85">
+                    <span className="text-[0.875rem] text-[var(--surface-fg)]">
                       {step.label}
                     </span>
                   </li>
@@ -78,7 +78,7 @@ export default function ContactPage() {
               <Reveal delay={320}>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="mt-8 inline-block text-[0.9375rem] text-vellum underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
+                  className="mt-8 inline-block text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
                 >
                   {siteConfig.contact.email}
                 </a>

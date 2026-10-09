@@ -106,7 +106,7 @@ export function HeroWindow() {
                 <span
                   className={cn(
                     "flex min-h-8 items-center gap-2 rounded-md px-2 text-[0.75rem]",
-                    i === 2 ? "bg-[var(--surface-panel)] text-vellum" : "text-sage",
+                    i === 2 ? "bg-[var(--surface-panel)] text-[var(--surface-fg)]" : "text-[var(--surface-muted)]",
                   )}
                 >
                   <Icon name={item.icon} className="size-3.5 shrink-0 opacity-70" />
@@ -132,7 +132,7 @@ export function HeroWindow() {
           <dl className="grid grid-cols-3 divide-x divide-[var(--surface-rule)] border-b border-[var(--surface-rule)]">
             {ui.tiles.map((tile) => (
               <div key={tile.label} className="px-3 py-3.5 sm:px-4">
-                <dt className="truncate text-[0.6875rem] text-sage">
+                <dt className="truncate text-[0.6875rem] text-[var(--surface-muted)]">
                   {tile.label}
                 </dt>
                 <dd>
@@ -154,7 +154,7 @@ export function HeroWindow() {
 
           {/* --- pipeline stages ---------------------- */}
           <div className="border-b border-[var(--surface-rule)] px-4 pt-4 pb-5">
-            <p className="text-[0.6875rem] text-sage">By stage</p>
+            <p className="text-[0.6875rem] text-[var(--surface-muted)]">By stage</p>
 
             <div
               aria-hidden="true"
@@ -182,7 +182,7 @@ export function HeroWindow() {
               {ui.stages.map((s, i) => (
                 <li
                   key={s.label}
-                  className="flex items-center gap-1.5 text-[0.6875rem] text-sage"
+                  className="flex items-center gap-1.5 text-[0.6875rem] text-[var(--surface-muted)]"
                 >
                   <span
                     aria-hidden="true"
@@ -192,7 +192,7 @@ export function HeroWindow() {
                     )}
                   />
                   {s.label}
-                  <span data-numeric className="text-vellum/85">
+                  <span data-numeric className="text-[var(--surface-fg)]">
                     {s.count}
                   </span>
                 </li>
@@ -207,16 +207,16 @@ export function HeroWindow() {
                 key={row.ref}
                 className="flex items-center gap-3 px-4 py-2.5 text-[0.6875rem]"
               >
-                <span data-numeric className="shrink-0 text-sage">
+                <span data-numeric className="shrink-0 text-[var(--surface-muted)]">
                   {row.ref}
                 </span>
-                <span className="min-w-0 flex-1 truncate text-vellum/85">
+                <span className="min-w-0 flex-1 truncate text-[var(--surface-fg)]">
                   {row.name}
                 </span>
-                <span className="hidden shrink-0 text-sage sm:inline">
+                <span className="hidden shrink-0 text-[var(--surface-muted)] sm:inline">
                   {row.stage}
                 </span>
-                <span className="shrink-0 text-sage">{row.value}</span>
+                <span className="shrink-0 text-[var(--surface-muted)]">{row.value}</span>
               </li>
             ))}
           </ul>

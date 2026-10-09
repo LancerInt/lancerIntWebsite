@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "audit:layout": "node scripts/audit.mjs"
+    "audit:layout": "node scripts/audit.mjs",
+    "audit:scheme": "node scripts/audit-scheme.mjs"
   },
   "dependencies": {
     "motion": "^11.18.2",

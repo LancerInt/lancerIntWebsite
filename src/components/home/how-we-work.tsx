@@ -32,7 +32,7 @@ export function HowWeWork() {
             as="h2"
             lines={[...processIntro.lines]}
             accentWord={processIntro.accent}
-            className="text-d1 mt-6 font-display text-vellum"
+            className="text-d1 mt-6 font-display text-[var(--surface-fg)]"
             lineClassName="pb-[0.02em]"
           />
         </div>
@@ -51,7 +51,7 @@ export function HowWeWork() {
             {/* oversized ghost numeral behind the label */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute top-0 left-0 font-display text-[3rem] leading-none font-medium tracking-[-0.04em] text-vellum opacity-[0.08] transition-opacity duration-500 group-hover:opacity-[0.16]"
+              className="pointer-events-none absolute top-0 left-0 font-display text-[3rem] leading-none font-medium tracking-[-0.04em] text-[var(--surface-fg)] opacity-[0.08] transition-opacity duration-500 group-hover:opacity-[0.16]"
             >
               {step.index}
             </span>
@@ -66,10 +66,10 @@ export function HowWeWork() {
               className="absolute top-9 left-0 size-[7px] -translate-y-1/2 rounded-full bg-[var(--surface-fg)]/30 transition-colors duration-400 group-hover:bg-[var(--surface-fg)]"
             />
 
-            <h3 className="relative font-display text-[1.125rem] leading-snug font-medium tracking-[-0.015em] text-vellum">
+            <h3 className="relative font-display text-[1.125rem] leading-snug font-medium tracking-[-0.015em] text-[var(--surface-fg)]">
               {step.label}
             </h3>
-            <p className="relative mt-2.5 max-w-[32ch] text-[0.875rem] leading-[1.65] text-sage">
+            <p className="relative mt-2.5 max-w-[32ch] text-[0.875rem] leading-[1.65] text-[var(--surface-muted)]">
               {step.body}
             </p>
           </Reveal>

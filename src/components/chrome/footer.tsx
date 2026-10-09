@@ -29,17 +29,17 @@ export function Footer() {
         <div className="grid gap-x-12 gap-y-10 border-t border-[var(--surface-rule)] py-14 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Link href="/" aria-label={`${siteConfig.name} — home`}>
-              <Logo tone="light" width="w-[128px]" />
+              <Logo width="w-[128px]" />
             </Link>
 
-            <p className="mt-5 max-w-[34ch] text-[0.9375rem] leading-relaxed text-sage">
+            <p className="mt-5 max-w-[34ch] text-[0.9375rem] leading-relaxed text-[var(--surface-muted)]">
               {siteConfig.statement}
             </p>
 
             {hasContactDetails && siteConfig.contact.email ? (
               <a
                 href={`mailto:${siteConfig.contact.email}`}
-                className="mt-5 inline-block text-[0.875rem] text-sage underline decoration-[var(--surface-rule)] underline-offset-4 transition-colors hover:text-vellum hover:decoration-[var(--surface-fg)]"
+                className="mt-5 inline-block text-[0.875rem] text-[var(--surface-muted)] underline decoration-[var(--surface-rule)] underline-offset-4 transition-colors hover:text-[var(--surface-fg)] hover:decoration-[var(--surface-fg)]"
               >
                 {siteConfig.contact.email}
               </a>
@@ -55,7 +55,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group inline-flex min-h-9 items-center text-[0.875rem] text-sage transition-colors hover:text-vellum"
+                    className="group inline-flex min-h-9 items-center text-[0.875rem] text-[var(--surface-muted)] transition-colors hover:text-[var(--surface-fg)]"
                   >
                     <span className="relative">
                       {link.label}
@@ -72,12 +72,12 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-[var(--surface-rule)] py-6">
-          <p className="text-[0.8125rem] text-sage">
+          <p className="text-[0.8125rem] text-[var(--surface-muted)]">
             © {siteConfig.legal.copyrightFrom}
             {year > siteConfig.legal.copyrightFrom ? `–${year}` : ""}{" "}
             {siteConfig.legal.entity}
           </p>
-          <p className="text-[0.75rem] text-sage">
+          <p className="text-[0.75rem] text-[var(--surface-muted)]">
             Interface mockups shown on this site are illustrative concepts, not
             commercial products.
           </p>

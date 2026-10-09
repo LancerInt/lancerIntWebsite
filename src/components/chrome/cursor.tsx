@@ -10,11 +10,15 @@ import { usePrefersReducedMotion } from "@/components/ui/reveal";
    carrying data-cursor="VIEW" | "OPEN" | …
 
    It reads the surface beneath it rather than using a blend
-   mode. Blending lime with difference over the vellum sections
-   produces a purple that is nowhere in the palette and reads
-   as a rendering bug — so the colour is chosen from the nearest
-   [data-surface] instead: signal on dark ground, forest on
-   light.
+   mode. Blending with `difference` over a light section
+   produced a purple that is nowhere in the palette and read as
+   a rendering bug.
+
+   Rather than branch on light-vs-dark in JS, it copies the
+   nearest [data-surface] value onto itself and lets CSS resolve
+   the tokens. That was already the better shape; now that the
+   surfaces follow prefers-color-scheme it is the only correct
+   one — "is this surface light?" has no fixed answer any more.
 
    Rules it follows: fine pointers only (never touch), never
    replaces the native cursor so the real one stays available
@@ -22,15 +26,12 @@ import { usePrefersReducedMotion } from "@/components/ui/reveal";
    capture a single pointer event.
    ============================================================ */
 
-/** Surfaces whose ground is light enough to need dark ink. */
-const LIGHT_SURFACES = new Set(["light", "paper"]);
-
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
   const [active, setActive] = useState(false);
-  const [onLight, setOnLight] = useState(false);
+  const [surface, setSurface] = useState<string | null>(null);
   const reduce = usePrefersReducedMotion();
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export function Cursor() {
       const node = dotRef.current;
       if (node) {
         node.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        node.style.opacity = x < 0 ? "0" : "1";
       }
     };
 
@@ -75,8 +77,8 @@ export function Cursor() {
       setLabel(interactive?.dataset?.cursor ?? null);
       setActive(Boolean(interactive));
 
-      const surface = element.closest<HTMLElement>("[data-surface]");
-      setOnLight(LIGHT_SURFACES.has(surface?.dataset.surface ?? ""));
+      const band = element.closest<HTMLElement>("[data-surface]");
+      setSurface(band?.dataset.surface ?? null);
     };
 
     const onLeave = () => {
@@ -97,14 +99,26 @@ export function Cursor() {
   if (!enabled) return null;
 
   const size = label ? 60 : active ? 26 : 7;
-  const ink = onLight ? "var(--color-forest)" : "var(--color-signal)";
+  const ink = "var(--surface-accent-strong)";
   const hollow = Boolean(label || active);
 
   return (
     <div
       ref={dotRef}
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-0 z-300 hidden lg:block"
+      data-surface={surface ?? undefined}
+      className="pointer-events-none fixed top-0 left-0 z-300 hidden !bg-transparent lg:block"
+      /* Unpainted until the first pointermove gives it a real
+         position. Rendering at 0,0 put a dot in the corner of
+         the masthead on load, in every capture; parking it at
+         -100px instead just moved the problem, since content
+         off the left edge is what the layout audit looks for.
+         Opacity costs nothing and is off the layout entirely.
+
+         `!bg-transparent` is for data-surface: the base rule
+         paints a ground on anything carrying one, and this
+         element wants only the tokens. */
+      style={{ opacity: 0 }}
     >
       <div
         className="flex items-center justify-center rounded-full border"

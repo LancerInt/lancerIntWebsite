@@ -383,7 +383,7 @@ function SelectField({
             {placeholder}
           </option>
           {options.map((o) => (
-            <option key={o} value={o} className="text-ink">
+            <option key={o} value={o}>
               {o}
             </option>
           ))}

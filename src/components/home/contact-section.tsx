@@ -32,12 +32,12 @@ export function ContactSection() {
             as="h2"
             lines={[...contact.lines]}
             accentWord={contact.accent}
-            className="text-d1 mt-6 font-display text-vellum"
+            className="text-d1 mt-6 font-display text-[var(--surface-fg)]"
             lineClassName="pb-[0.02em]"
           />
 
           <Reveal delay={200}>
-            <p className="mt-6 max-w-[42ch] text-[0.9375rem] leading-[1.7] text-sage">
+            <p className="mt-6 max-w-[42ch] text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]">
               {contact.body}
             </p>
           </Reveal>
@@ -48,11 +48,11 @@ export function ContactSection() {
               <dl className="mt-10 space-y-4">
                 {siteConfig.contact.email ? (
                   <div>
-                    <dt className="text-[0.75rem] text-sage">Email</dt>
+                    <dt className="text-[0.75rem] text-[var(--surface-muted)]">Email</dt>
                     <dd className="mt-1">
                       <a
                         href={`mailto:${siteConfig.contact.email}`}
-                        className="text-[0.9375rem] text-vellum underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
+                        className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
                       >
                         {siteConfig.contact.email}
                       </a>
@@ -61,8 +61,8 @@ export function ContactSection() {
                 ) : null}
                 {siteConfig.contact.phone ? (
                   <div>
-                    <dt className="text-[0.75rem] text-sage">Phone</dt>
-                    <dd className="mt-1 text-[0.9375rem] text-vellum">
+                    <dt className="text-[0.75rem] text-[var(--surface-muted)]">Phone</dt>
+                    <dd className="mt-1 text-[0.9375rem] text-[var(--surface-fg)]">
                       {siteConfig.contact.phone}
                     </dd>
                   </div>

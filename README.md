@@ -12,122 +12,133 @@ npm run typecheck
 
 ---
 
-## 0. Checking the layout
+## 0. Checking the work
 
 ```bash
 npm run build && npx next start -p 3000      # in one terminal
-npm run audit:layout http://localhost:3000/ --shots
+
+npm run audit:layout http://localhost:3000/ --shots   # proportions & reveals
+npm run audit:scheme http://localhost:3000  --shots   # BOTH colour schemes
 ```
 
-Drives the installed Chrome through `playwright-core` (dev dependency, no
-browser download) and reports, at 1440px and 390px:
+Both drive the installed Chrome through `playwright-core` (dev dependency, no
+browser download). Neither needs a human to look at a screenshot to fail.
 
-- every section's height, how much of it is padding, and the tallest vertical
-  band with nothing painted in it
-- **any element still at `opacity: 0` after scrolling and settling**
-- horizontal overflow, ignoring SVG geometry and clipped ancestors
+**`audit:layout`** — at 1440px and 390px, reports every section's height, how
+much of it is padding, the tallest empty vertical band, **any element still at
+`opacity: 0` after scrolling and settling**, and horizontal overflow (ignoring
+SVG geometry and clipped ancestors). That `opacity: 0` check is how the 82
+permanently invisible elements described below were found. **Run it after any
+change to `Reveal`, `AnimatedText`, or section padding.**
 
-That second check is the one that matters. It is how the 82 permanently
-invisible elements described below were found. **Run it after any change to
-`Reveal`, `AnimatedText`, or section padding.** `--shots` writes full-page
-screenshots to `audit/`.
-
----
-
-## 0b. Brand colour — a decision you need to make
-
-The supplied logo (`/public/lancer-logo.png`) is **navy blue and gold**. The
-approved art direction is **deep green, ivory and mint**. These do not belong to
-the same palette.
-
-Right now the site does the sensible interim thing: the white lockup
-(`lancer-logo-light.png`) sits on every dark surface, where it is neutral and
-clashes with nothing, and the full-colour lockup appears on the ivory masthead
-once scrolled. The navy/gold is only ever visible there.
-
-Three ways to resolve it properly, in order of how much work they are:
-
-1. **Re-tone the site to the brand** — swap `--color-forest` / `--color-mint`
-   for navy and gold in `globals.css`. Everything else re-skins automatically,
-   because no component hardcodes an accent. Half a day, and the site matches
-   the company's actual identity.
-2. **Use the white lockup everywhere** — keep the green palette and never show
-   the navy/gold. Cheapest, but the logo loses its colour.
-3. **Re-draw the logo in the site palette.** A brand decision, not a code one.
+**`audit:scheme`** — loads every route twice with `prefers-color-scheme`
+emulated light and dark, and for each one walks every text node, flattens the
+whole background stack behind it, and computes the real WCAG ratio. Anything
+below AA fails the run. It exists because a themed site cannot be verified in
+the scheme your machine happens to be in: the first pass after the theme landed
+looked fine in dark and had 15 failures in light. **Run it after any change to
+`globals.css` or to a `data-surface`.** Shots land in `audit-shots/`
+(git-ignored).
 
 ---
 
-## 1. The design language (rev 3)
+## 0b. Brand colour — resolved
 
-**Paper and ink, lit from above.** Deep green is the substance — surfaces, type,
-structure. Electric lime is the *signal*: it only ever marks flow, motion, or an
-active state.
+The supplied logo is navy and gold; earlier revisions of this site were deep
+green and mint, and the two did not belong to the same palette. That conflict is
+gone, two ways:
 
-Rev 1 was a drafting table: flat hairlines, mono labels everywhere, a dusty paper
-ground. Correct register for an engineering studio, wrong one for a software
-product company. Rev 2 changed three things:
+1. **The site is monochrome.** There is no brand-coloured accent left to clash
+   with. Emphasis is weight and tone.
+2. **The lockup follows the scheme.** `components/chrome/logo.tsx` renders both
+   files and hides one with a `dark:` class — full-colour on a light ground,
+   white on a dark one. No JS, no flash, no wrong lockup during SSR.
 
-1. **Light is a material.** Panels carry a 1px top highlight plus a contact
-   shadow plus a long soft shadow. The top highlight is what sells it — it reads
-   as a real edge catching light. Dark sections get one `top-light` radial,
-   anchored off-canvas so it is illumination, not an orb in the layout.
-2. **Brighter, cooler ground.** Near-white canvas with true white panels. The
-   contrast between the two is what makes a panel read as raised.
-3. **One type family.** Host Grotesk does display *and* body. Rev 1 shipped four
-   families; the serif in particular pulled everything toward magazine.
+One asset note: the two files are trimmed differently (514×220 and 509×181), so
+the wrapper reserves the taller ratio and contains both. If they are ever
+re-exported on a common canvas, that `object-contain` becomes a harmless no-op.
 
-| Token | Hex | Used for |
-|---|---|---|
-| `ink` | `#08130F` | Deepest technical surface |
-| `forest` | `#123C35` | Primary dark surface — the brand |
-| `moss` | `#2A5249` | Strokes on dark |
-| `graphite` | `#14181C` | Application chrome (the demo window) |
-| `vellum` | `#F4F6F2` | Page canvas |
-| `paper` | `#FAFBF8` | Alternate canvas |
-| `surface` | `#FFFFFF` | Raised panel |
-| `chalk` | `#E8ECE5` | Sunken / pressed |
-| `sage` | `#A1B4AC` | Muted text on dark — 5.6:1 |
-| `stone` | `#4F615B` | Muted text on light — 6.1:1 |
-| `signal` | `#CBF074` | Flow / motion / active, on dark |
-| `signal-dim` | `#4A7A24` | The same idea, legible on light — 4.7:1 |
+---
 
-### The accent is surface-dependent
+## 1. The design language
 
-This is the most useful rule in the system. Each `[data-surface]` declares its
-own `--surface-accent`: lime on dark ground, deep green on light. Components ask
-for `var(--surface-accent)` and are correct wherever they are dropped.
+**Monochrome, and it follows the system colour scheme.** Light scheme → light
+grounds, dark type, the colour lockup. Dark scheme → the inverse. Nothing in the
+CSS names a colour that is only correct in one of them.
 
-That rule exists because rev 1 hardcoded `bg-signal` / `text-signal` in a dozen
-places, and five of them rendered lime on a near-white surface at roughly 1.4:1.
-Never hardcode an accent again — the token already knows.
+### Three layers, each reading the one below
 
-Each surface also declares `--surface-panel`, `--surface-sunken`,
-`--surface-rule`, `--surface-lift` and `--surface-hairline`, so a nested panel
-never needs to know which section it sits in.
+**1 · Steps.** A handful of neutral values — `--s-*` grounds, `--t-*` text,
+`--rule`, `--lift`, `--metal-*`. Declared once for light, redeclared once inside
+`@media (prefers-color-scheme: dark)`. **This is the only place a hex literal
+appears and the only place the scheme is named.**
+
+**2 · Surfaces.** A section declares `data-surface="ink"` (or `forest`,
+`graphite`, `paper`, `light`, `sage`) and that resolves the `--surface-*`
+contract — `bg`, `fg`, `muted`, `rule`, `panel`, `raised`, `sunken`, `accent`,
+`accent-strong`, `cta-bg`, `cta-fg`, `lift` — out of the steps.
+
+Most surfaces *follow* the scheme. `light` and `sage` are the one **opposing**
+band: they invert against it, so the page keeps real light/dark contrast in
+either scheme instead of going flat.
+
+**3 · Components.** Only ever read `--surface-*`. A component never knows which
+scheme it is in, or whether it is sitting on the following or the opposing band.
+
+### Never alias a surface token into `@theme`
+
+This looks like an obvious convenience and it is a trap:
+
+```css
+@theme { --color-sage: var(--surface-muted); }   /* WRONG */
+```
+
+A custom property has its `var()`s substituted **where it is declared**, and
+`@theme` declares into `:root`. So `--color-sage` resolves once against root's
+muted tone and every element inherits that one frozen value. Text on the
+opposing band silently keeps the following band's tone — it measured 2.5–2.8:1
+when this was tried, and nothing about the markup looked wrong.
+
+Components write `text-[var(--surface-muted)]` so the cascade actually reaches
+the element. There is deliberately no shorthand to get wrong.
+
+### Never put opacity on text
+
+`opacity-55` on a muted grey measures about 2.4:1. An earlier revision had
+**133** of these and they were all failing; the nav links regressed into the
+same mistake at `opacity-70` while the theme was being built. Hierarchy between
+a kicker and a footnote is carried by **position, size and tone** — not by a
+second, fainter grey.
+
+Opacity is permitted only on `aria-hidden` decoration: the ghost step numerals,
+the footer wordmark. `audit:scheme` skips `aria-hidden` subtrees for exactly
+this reason.
+
+### The cursor-lit objects
+
+`CursorMark` (the hero monogram) and `CursorObject` (the sphere) are brushed
+metal lit by the pointer — a CSS mask over a moving gradient stack, no WebGL.
+Their tones come from `--metal-*`, which flip with the scheme: **dark steel on a
+light ground, bright chrome on a dark one.** Chrome tones on an ivory page give
+you a pale shape with no edge.
+
+Neither may use a `rounded-full` glow element. A circle whose gradient fades out
+before its own edge draws a visible disc around the object. Glow belongs in a
+`drop-shadow`/`box-shadow`, where it takes the object's silhouette.
+
+### Typography
+
+- **Sora** (variable) — display and body. `-0.035em` at hero scale, `0` at body.
+- **JetBrains Mono** (variable) — genuine metadata only.
+- `.accent-italic` recedes one phrase into `--surface-muted`, so the first half
+  of a two-tone headline carries the weight.
 
 > The surface paint rule lives in `@layer base` on purpose — unlayered rules beat
 > every layered one in the cascade, which would make a surface background
 > impossible to override with a utility. The translucent masthead needs that.
 
-### Typography
-
-- **Host Grotesk** (variable 300–800, plus italic) — display and body. Set to
-  `-0.04em` at hero scale, `0` at body scale.
-- **JetBrains Mono** (variable) — genuine metadata only. `mono-label` sits at
-  450 weight, half a step above body, which reads as deliberate rather than bold.
-- `.accent-italic` is the same family's italic at a lighter weight — a shift in
-  voice, not a change of costume.
-
-### Never put opacity on text
-
-`opacity-55` on a muted grey measures about 2.4:1. Rev 1 had **133** of these
-across the site and they were all failing. Hierarchy between a kicker and a
-footnote is carried by **position and size**, not by a second, fainter grey.
-Opacity is permitted only on `aria-hidden` decoration — the ghost numerals in
-`NumberedFlow`, the footer wordmark.
-
-Every pair in the table above was verified with a WCAG contrast calculation, not
-by eye. If you change a colour, re-run that check.
+Every pair was verified with a WCAG calculation, not by eye. If you change a
+colour, run `npm run audit:scheme`.
 
 ---
 

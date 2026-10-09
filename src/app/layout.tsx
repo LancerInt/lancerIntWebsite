@@ -85,8 +85,8 @@ export const viewport: Viewport = {
   /* zoom is never disabled */
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#123c35" },
-    { media: "(prefers-color-scheme: dark)", color: "#07100e" },
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
   ],
 };
 
@@ -115,8 +115,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body data-surface="light">
-        <a href="#main" className="sr-focusable z-300 bg-signal px-4 py-3 font-display text-sm font-medium text-ink">
+      <body>
+        <a href="#main" className="sr-focusable z-300 bg-[var(--surface-fg)] px-4 py-3 font-display text-sm font-medium text-[var(--surface-bg)]">
           Skip to main content
         </a>
 

@@ -48,7 +48,7 @@ export function Approach() {
         <Reveal delay={160} className="lg:col-span-5 lg:col-start-8 lg:pt-14">
           <div className="space-y-5">
             {approach.paragraphs.map((p, i) => (
-              <p key={i} className="text-[0.9375rem] leading-[1.7] text-stone">
+              <p key={i} className="text-[0.9375rem] leading-[1.7] text-[var(--surface-muted)]">
                 {p}
               </p>
             ))}
@@ -69,7 +69,7 @@ export function Approach() {
                   <h3 className="font-display text-[1.0625rem] leading-snug font-medium tracking-[-0.012em]">
                     {stage.label}
                   </h3>
-                  <p className="mt-2 max-w-[30ch] text-[0.875rem] leading-[1.6] text-stone">
+                  <p className="mt-2 max-w-[30ch] text-[0.875rem] leading-[1.6] text-[var(--surface-muted)]">
                     {stage.note}
                   </p>
                 </div>
@@ -106,7 +106,7 @@ export function Approach() {
             <path d="M20 11a8 8 0 1 0-.7 3.3" />
             <path d="M20 5v6h-6" />
           </svg>
-          <p className="text-[0.875rem] text-stone">
+          <p className="text-[0.875rem] text-[var(--surface-muted)]">
             Then again — each pass informed by what the last one revealed.
           </p>
         </div>

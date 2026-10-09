@@ -4,9 +4,15 @@ import { siteConfig } from "@/lib/site-config";
 /* ============================================================
    OPENGRAPH IMAGE
    ------------------------------------------------------------
-   The headline, the strapline and one accent rule on the dark
-   ground. No webfont is loaded, so it renders at build time
-   without a network call.
+   The headline, the strapline and one rule, on the dark ground.
+   No webfont is loaded, so it renders at build time without a
+   network call.
+
+   This cannot follow prefers-color-scheme — it is baked once
+   and handed to every scraper — so it commits to the dark side
+   of the palette. The values are the dark-scheme steps written
+   out literally, because @theme is not available in an OG
+   route; keep them in step with globals.css by hand.
    ============================================================ */
 
 export const alt =
@@ -24,8 +30,8 @@ export default async function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#070f0d",
-          color: "#f7f5f0",
+          backgroundColor: "#0b0b0b",
+          color: "#fafafa",
           padding: "64px 72px",
           fontFamily: "sans-serif",
         }}
@@ -37,11 +43,11 @@ export default async function OpengraphImage() {
             gap: 18,
             fontSize: 19,
             letterSpacing: 4,
-            color: "#7ad6ac",
+            color: "#8d8d8d",
             textTransform: "uppercase",
           }}
         >
-          <span style={{ width: 34, height: 2, backgroundColor: "#7ad6ac", display: "block" }} />
+          <span style={{ width: 34, height: 2, backgroundColor: "#fafafa", display: "block" }} />
           {siteConfig.positioning}
         </div>
 
@@ -64,10 +70,10 @@ export default async function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: "1px solid rgba(247,245,240,0.16)",
+            borderTop: "1px solid #242424",
             paddingTop: 26,
             fontSize: 22,
-            color: "#9caba4",
+            color: "#8d8d8d",
           }}
         >
           <span>{siteConfig.name}</span>

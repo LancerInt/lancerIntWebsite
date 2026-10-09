@@ -27,11 +27,11 @@ export default function NotFound() {
       <Container className="relative z-1">
         <p className="eyebrow">Error · 404</p>
 
-        <h1 className="text-d1 mt-6 max-w-3xl font-display text-vellum">
+        <h1 className="text-d1 mt-6 max-w-3xl font-display text-[var(--surface-fg)]">
           This page doesn&rsquo;t <span className="accent-italic">exist</span>.
         </h1>
 
-        <p className="text-lead mt-6 max-w-[46ch] text-sage">
+        <p className="text-lead mt-6 max-w-[46ch] text-[var(--surface-muted)]">
           The address resolved, but there is nothing published at it. The link
           may be out of date.
         </p>
@@ -43,7 +43,7 @@ export default function NotFound() {
         </div>
 
         <nav aria-label="Main sections" className="mt-14">
-          <p className="text-[0.75rem] tracking-[0.14em] text-sage uppercase">
+          <p className="text-[0.75rem] tracking-[0.14em] text-[var(--surface-muted)] uppercase">
             Or try one of these
           </p>
           <ul className="mt-5 border-t border-[var(--surface-rule)]">
@@ -53,10 +53,10 @@ export default function NotFound() {
                   href={link.href}
                   className="group flex items-center justify-between gap-4 py-4"
                 >
-                  <span className="font-display text-[1.0625rem] font-medium text-vellum">
+                  <span className="font-display text-[1.0625rem] font-medium text-[var(--surface-fg)]">
                     {link.label}
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-sage transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="size-4 shrink-0 text-[var(--surface-muted)] transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </li>
             ))}
