@@ -2,6 +2,7 @@ import { AnimatedText } from "@/components/ui/animated-text";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { Icon } from "@/components/icons";
+import { HeroWindow } from "@/components/system/hero-system";
 import { capabilities, capabilitiesIntro } from "@/lib/content";
 
 /* ============================================================
@@ -92,6 +93,22 @@ export function Capabilities() {
           </Reveal>
         ))}
       </ol>
+
+      {/* --- what one of these looks like ----------------
+          The CRM view, moved down from the hero. It belongs
+          here: beside the capability list it is an example of
+          the first item rather than decoration. */}
+      <div className="mt-20 lg:mt-28">
+        <Reveal distance={16}>
+          <HeroWindow />
+        </Reveal>
+        <Reveal delay={120}>
+          <p className="mt-4 text-center text-[0.75rem] text-[var(--surface-muted)]">
+            An illustrative CRM pipeline, showing the kind of system we build.
+            Not a commercial product, and the data is invented.
+          </p>
+        </Reveal>
+      </div>
     </Section>
   );
 }

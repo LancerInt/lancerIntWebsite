@@ -24,10 +24,20 @@ export function Container({
   children: React.ReactNode;
   className?: string;
 }) {
+  /*
+   * 1280px, down from 1680px.
+   *
+   * The reference holds its content in a centred column with
+   * wide empty margins — measured off the live page it runs
+   * about 1295px inside a 1920 viewport, roughly two-thirds of
+   * the width. At 1680px our content stretched to the window
+   * edges, which is why lines ran long and the page read as
+   * dense rather than composed. The margin is the design.
+   */
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-[1680px] px-5 sm:px-6 lg:px-10",
+        "mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10",
         className,
       )}
     >

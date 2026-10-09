@@ -56,7 +56,7 @@ export function Masthead() {
         )}
         style={scrolled ? undefined : { backgroundColor: "transparent" }}
       >
-        <div className="mx-auto flex h-20 w-full max-w-[1680px] items-center gap-6 px-5 sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-20 w-full max-w-[1280px] items-center gap-6 px-5 sm:px-8 lg:px-10">
           {/* --- logo -------------------------------------- */}
           <Link
             href="/"

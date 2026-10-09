@@ -2,7 +2,7 @@ import { AnimatedText } from "@/components/ui/animated-text";
 import { PrimaryAction, ArrowLink } from "@/components/ui/actions";
 import { Container } from "@/components/ui/section";
 import { Reveal } from "@/components/ui/reveal";
-import { HeroWindow } from "@/components/system/hero-system";
+import { CursorMark } from "@/components/system/cursor-mark";
 import { hero } from "@/lib/content";
 
 /* ============================================================
@@ -27,7 +27,7 @@ export function Hero() {
       <Container className="relative z-1">
         <div className="grid items-center gap-x-12 gap-y-14 pt-28 pb-16 sm:pt-32 lg:grid-cols-12 lg:gap-x-16 lg:pt-36 lg:pb-24">
           {/* --- statement -------------------------------- */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-7">
             {/* a bordered pill, not a letterspaced label — the
                 reference opens with one small badge above the
                 headline and no accent colour anywhere near it */}
@@ -67,17 +67,18 @@ export function Hero() {
             </Reveal>
           </div>
 
-          {/* --- the software ----------------------------- */}
-          <div className="lg:col-span-7 lg:-mr-4 xl:-mr-10">
+          {/* --- the mark ---------------------------------
+              The reference opens with its brand mark rendered
+              in metal and lets the product appear further down.
+              Same order here: the monogram holds the hero, the
+              CRM view moves to the capability section where it
+              has something to illustrate. */}
+          <div className="flex justify-center lg:col-span-5 lg:justify-end">
             <Reveal delay={220} distance={16}>
-              <HeroWindow />
-            </Reveal>
-
-            <Reveal delay={320}>
-              <p className="mt-4 text-[0.75rem] text-sage">
-                An illustrative interface showing the kind of system we build.
-                Not a commercial product, and the data is invented.
-              </p>
+              <CursorMark
+                size={320}
+                className="w-[min(62vw,300px)] lg:w-[320px] xl:w-[360px]"
+              />
             </Reveal>
           </div>
         </div>

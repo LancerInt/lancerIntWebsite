@@ -30,7 +30,7 @@ export default function ContactPage() {
       data-surface="ink"
       className="top-light relative isolate min-h-dvh overflow-hidden"
     >
-      <div className="mx-auto w-full max-w-[1680px] px-5 pt-32 pb-20 sm:px-6 sm:pt-36 lg:px-10 lg:pt-40 lg:pb-28">
+      <div className="mx-auto w-full max-w-[1280px] px-5 pt-32 pb-20 sm:px-6 sm:pt-36 lg:px-10 lg:pt-40 lg:pb-28">
         <div className="grid gap-x-16 gap-y-12 lg:grid-cols-12">
           {/* --- invitation ---------------------------- */}
           <div className="lg:col-span-5">
