@@ -26,8 +26,13 @@ export const siteConfig = {
   description:
     "Lancer International builds CRM systems, ERP and business applications, workflow automation and custom software — designed around the way a business actually works.",
 
-  /** PLACEHOLDER — replace with the production domain. */
-  url: "https://lancer-international.example",
+  /**
+   * Production domain. Feeds metadataBase, the canonical and
+   * OpenGraph URLs, robots.txt and sitemap.xml — so it has to be
+   * the absolute origin crawlers will actually resolve, with no
+   * trailing slash and no `www.` unless the host redirects to it.
+   */
+  url: "https://lancers.in",
 
   /**
    * Every field here is optional and currently empty. Components
