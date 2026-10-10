@@ -1,8 +1,8 @@
 import { AnimatedText } from "@/components/ui/animated-text";
+import { CursorIcon } from "@/components/system/cursor-icon";
 import { PrimaryAction } from "@/components/ui/actions";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
-import { CursorObject } from "@/components/system/cursor-object";
 import { productDirection } from "@/lib/content";
 
 /* ============================================================
@@ -29,19 +29,11 @@ import { productDirection } from "@/lib/content";
 export function ProductDirection() {
   return (
     <Section id="product-direction" surface="ink" size="lg" divider>
-      {/* The reference punctuates its sections with a small
-          rendered object. This is the one place on the page it
-          belongs: a section about something not yet formed,
-          marked by the only object that is pure surface and no
-          content. */}
-      <Reveal className="mb-16 flex justify-center lg:mb-20">
-        <CursorObject size={104} />
-      </Reveal>
-
       <div className="grid gap-x-16 gap-y-12 lg:grid-cols-12">
         {/* --- statement -------------------------------- */}
         <div className="lg:col-span-6">
           <Reveal distance={10}>
+            <CursorIcon shape="stack" className="mb-5" />
             <p className="eyebrow">{productDirection.eyebrow}</p>
           </Reveal>
 

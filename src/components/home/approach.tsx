@@ -1,4 +1,5 @@
 import { AnimatedText } from "@/components/ui/animated-text";
+import { CursorIcon } from "@/components/system/cursor-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { ArrowRight } from "@/components/icons";
@@ -33,6 +34,7 @@ export function Approach() {
         {/* --- statement -------------------------------- */}
         <div className="lg:col-span-6">
           <Reveal distance={10}>
+            <CursorIcon shape="interlock" className="mb-5" />
             <p className="eyebrow">{approach.eyebrow}</p>
           </Reveal>
 

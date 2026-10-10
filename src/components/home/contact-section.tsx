@@ -1,4 +1,5 @@
 import { AnimatedText } from "@/components/ui/animated-text";
+import { CursorIcon } from "@/components/system/cursor-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { ContactForm } from "@/components/contact/contact-form";
@@ -25,6 +26,7 @@ export function ContactSection() {
         {/* --- the invitation --------------------------- */}
         <div className="lg:col-span-5">
           <Reveal distance={10}>
+            <CursorIcon shape="bubble" className="mb-5" />
             <p className="eyebrow">{contact.eyebrow}</p>
           </Reveal>
 

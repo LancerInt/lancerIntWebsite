@@ -245,23 +245,41 @@
 
   --bloom: rgba(14, 14, 14, 0.06);
 
-  /* Brushed metal, lit by the cursor.
+  /* --- Brushed metal ---------------------------------------
+     These are keyed to the GROUND an object stands on, not to
+     the colour scheme, and so they are declared once. A dark
+     steel glyph needs a light page behind it and a chrome one
+     needs a dark page, whichever scheme produced that page.
 
-     On a light ground this has to be DARK steel with thin
-     gloss, not bright chrome. The first attempt reused the
-     dark-scheme tones (highlights at #ffffff) and the glyph
-     dissolved into the #fafafa page — a pale shape with no
-     edge. Every step here sits below the ground, and the
-     specular is an alpha wash so it glosses the steel instead
-     of punching a white hole in it. */
-  --metal-hi: #d4d4d4;
-  --metal-1: #8d8d8d;
-  --metal-2: #5e5e5e;
-  --metal-3: #343434;
-  --metal-4: #161616;
-  --metal-spec: rgba(255, 255, 255, 0.42);
-  --metal-shade: rgba(0, 0, 0, 0.55);
-  --metal-glow: rgba(14, 14, 14, 0.28);
+     This mattered: with the tones keyed to the scheme, the
+     icon on the opposing band was chrome on ivory in dark
+     scheme — no rim, no edge, invisible. The assignment
+     happens per surface further down. ------------------- */
+
+  /* an object on a DARK ground: bright chrome */
+  --metal-d-hi: #ffffff;
+  --metal-d-1: #cfcfcf;
+  --metal-d-2: #8e8e8e;
+  --metal-d-3: #585858;
+  --metal-d-4: #343434;
+  --metal-d-spec: rgba(255, 255, 255, 0.95);
+  --metal-d-shade: rgba(0, 0, 0, 0.7);
+  --metal-d-glow: rgba(255, 255, 255, 0.14);
+  --metal-d-rim: rgba(255, 255, 255, 0.92);
+  --metal-d-brush: rgba(255, 255, 255, 0.055);
+
+  /* an object on a LIGHT ground: dark steel */
+  --metal-l-hi: #d4d4d4;
+  --metal-l-1: #8d8d8d;
+  --metal-l-2: #5e5e5e;
+  --metal-l-3: #343434;
+  --metal-l-4: #161616;
+  --metal-l-spec: rgba(255, 255, 255, 0.42);
+  --metal-l-shade: rgba(0, 0, 0, 0.55);
+  --metal-l-glow: rgba(14, 14, 14, 0.28);
+  --metal-l-rim: rgba(10, 10, 10, 0.55);
+  --metal-l-brush: rgba(0, 0, 0, 0.07);
+
   --sphere-rim: rgba(255, 255, 255, 0.5);
   --sphere-core: #0a0a0a;
   --sphere-cast: rgba(14, 14, 14, 0.35);
@@ -292,19 +310,79 @@
 
     --bloom: rgba(250, 250, 250, 0.07);
 
-    /* bright chrome on a dark ground — here the steps can run
-       right up to white, because the ground is below them all */
-    --metal-hi: #ffffff;
-    --metal-1: #cfcfcf;
-    --metal-2: #8e8e8e;
-    --metal-3: #585858;
-    --metal-4: #343434;
-    --metal-spec: rgba(255, 255, 255, 0.95);
-    --metal-shade: rgba(0, 0, 0, 0.7);
-    --metal-glow: rgba(255, 255, 255, 0.14);
     --sphere-rim: rgba(255, 255, 255, 0.3);
     --sphere-core: #0a0a0a;
     --sphere-cast: rgba(0, 0, 0, 0.85);
+  }
+}
+
+
+/* --- which metal, for which ground -----------------------
+   The page grounds flip with the scheme and the opposing band
+   flips against it, so each gets the tone set that will read
+   on whatever it ends up being. ------------------------- */
+
+:root,
+[data-surface="ink"],
+[data-surface="forest"],
+[data-surface="graphite"],
+[data-surface="paper"] {
+  --metal-hi: var(--metal-l-hi);
+  --metal-1: var(--metal-l-1);
+  --metal-2: var(--metal-l-2);
+  --metal-3: var(--metal-l-3);
+  --metal-4: var(--metal-l-4);
+  --metal-spec: var(--metal-l-spec);
+  --metal-shade: var(--metal-l-shade);
+  --metal-glow: var(--metal-l-glow);
+  --metal-rim: var(--metal-l-rim);
+  --metal-brush: var(--metal-l-brush);
+}
+
+[data-surface="light"],
+[data-surface="sage"] {
+  --metal-hi: var(--metal-d-hi);
+  --metal-1: var(--metal-d-1);
+  --metal-2: var(--metal-d-2);
+  --metal-3: var(--metal-d-3);
+  --metal-4: var(--metal-d-4);
+  --metal-spec: var(--metal-d-spec);
+  --metal-shade: var(--metal-d-shade);
+  --metal-glow: var(--metal-d-glow);
+  --metal-rim: var(--metal-d-rim);
+  --metal-brush: var(--metal-d-brush);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root,
+  [data-surface="ink"],
+  [data-surface="forest"],
+  [data-surface="graphite"],
+  [data-surface="paper"] {
+    --metal-hi: var(--metal-d-hi);
+    --metal-1: var(--metal-d-1);
+    --metal-2: var(--metal-d-2);
+    --metal-3: var(--metal-d-3);
+    --metal-4: var(--metal-d-4);
+    --metal-spec: var(--metal-d-spec);
+    --metal-shade: var(--metal-d-shade);
+    --metal-glow: var(--metal-d-glow);
+    --metal-rim: var(--metal-d-rim);
+    --metal-brush: var(--metal-d-brush);
+  }
+
+  [data-surface="light"],
+  [data-surface="sage"] {
+    --metal-hi: var(--metal-l-hi);
+    --metal-1: var(--metal-l-1);
+    --metal-2: var(--metal-l-2);
+    --metal-3: var(--metal-l-3);
+    --metal-4: var(--metal-l-4);
+    --metal-spec: var(--metal-l-spec);
+    --metal-shade: var(--metal-l-shade);
+    --metal-glow: var(--metal-l-glow);
+    --metal-rim: var(--metal-l-rim);
+    --metal-brush: var(--metal-l-brush);
   }
 }
 

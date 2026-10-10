@@ -1,4 +1,5 @@
 import { AnimatedText } from "@/components/ui/animated-text";
+import { CursorIcon } from "@/components/system/cursor-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { Icon } from "@/components/icons";
@@ -29,6 +30,7 @@ export function Capabilities() {
       <div className="grid gap-x-16 gap-y-8 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <Reveal distance={10}>
+            <CursorIcon shape="grid" className="mb-5" />
             <p className="eyebrow">{capabilitiesIntro.eyebrow}</p>
           </Reveal>
 
