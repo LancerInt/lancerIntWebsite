@@ -44,7 +44,9 @@ export function ContactSection() {
             </p>
           </Reveal>
 
-          {/* Renders only once real details exist. */}
+          {/* Email and phone only. The postal address lives in
+              the footer, which is a short scroll below this and
+              is the one place on the site that prints it. */}
           {hasContactDetails ? (
             <Reveal delay={260}>
               <dl className="mt-10 space-y-4">
@@ -77,20 +79,6 @@ export function ContactSection() {
                   </div>
                 ) : null}
 
-                {siteConfig.contact.addressLines.length ? (
-                  <div>
-                    <dt className="text-[0.75rem] text-[var(--surface-muted)]">Office</dt>
-                    <dd className="mt-1">
-                      <address className="text-[0.9375rem] leading-[1.6] text-[var(--surface-fg)] not-italic">
-                        {siteConfig.contact.addressLines.map((line) => (
-                          <span key={line} className="block">
-                            {line}
-                          </span>
-                        ))}
-                      </address>
-                    </dd>
-                  </div>
-                ) : null}
               </dl>
             </Reveal>
           ) : null}

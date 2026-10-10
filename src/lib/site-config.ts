@@ -47,9 +47,15 @@ export const siteConfig = {
     email: "info@lancers.in",
     phone: "+91 96777 07080",
     phoneHref: "+919677707080",
+    /* Broken so that the longest line still fits the footer's
+       address column on a 390px phone. Two earlier splits each
+       left one line a few pixels too wide and it wrapped through
+       the middle of the building name. `postal.street` below
+       keeps the single-line form schema.org expects. */
     addressLines: [
-      "D.No. 310U, Muthuram Complex, 2nd Floor",
-      "Brough Road",
+      "D.No. 310U",
+      "Muthuram Complex",
+      "2nd Floor, Brough Road",
       "Erode 638001",
       "Tamil Nadu, India",
     ] as string[],

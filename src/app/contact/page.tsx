@@ -76,28 +76,23 @@ export default function ContactPage() {
 
             {hasContactDetails ? (
               <Reveal delay={320}>
-                <div className="mt-8 space-y-4">
-                  <div className="flex flex-wrap gap-x-6 gap-y-2">
-                    {siteConfig.contact.email ? (
-                      <a href={`mailto:${siteConfig.contact.email}`} className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]">
-                        {siteConfig.contact.email}
-                      </a>
-                    ) : null}
-                    {siteConfig.contact.phone ? (
-                      <a href={`tel:${siteConfig.contact.phoneHref}`} className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]">
-                        {siteConfig.contact.phone}
-                      </a>
-                    ) : null}
-                  </div>
-
-                  {siteConfig.contact.addressLines.length ? (
-                    <address className="text-[0.9375rem] leading-[1.6] text-[var(--surface-muted)] not-italic">
-                      {siteConfig.contact.addressLines.map((line) => (
-                        <span key={line} className="block">
-                          {line}
-                        </span>
-                      ))}
-                    </address>
+                {/* The address is in the footer, just below. */}
+                <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+                  {siteConfig.contact.email ? (
+                    <a
+                      href={`mailto:${siteConfig.contact.email}`}
+                      className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
+                    >
+                      {siteConfig.contact.email}
+                    </a>
+                  ) : null}
+                  {siteConfig.contact.phone ? (
+                    <a
+                      href={`tel:${siteConfig.contact.phoneHref}`}
+                      className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
+                    >
+                      {siteConfig.contact.phone}
+                    </a>
                   ) : null}
                 </div>
               </Reveal>
