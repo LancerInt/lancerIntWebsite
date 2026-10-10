@@ -265,7 +265,9 @@
   --metal-d-spec: rgba(255, 255, 255, 0.95);
   --metal-d-shade: rgba(0, 0, 0, 0.7);
   --metal-d-glow: rgba(255, 255, 255, 0.14);
-  --metal-d-rim: rgba(255, 255, 255, 0.92);
+  --metal-d-rim: rgba(255, 255, 255, 0.85);
+  --metal-d-rim-soft: rgba(255, 255, 255, 0.22);
+  --metal-d-rim-shade: rgba(0, 0, 0, 0.55);
   --metal-d-brush: rgba(255, 255, 255, 0.055);
 
   /* an object on a LIGHT ground: dark steel */
@@ -277,7 +279,9 @@
   --metal-l-spec: rgba(255, 255, 255, 0.42);
   --metal-l-shade: rgba(0, 0, 0, 0.55);
   --metal-l-glow: rgba(14, 14, 14, 0.28);
-  --metal-l-rim: rgba(10, 10, 10, 0.55);
+  --metal-l-rim: rgba(10, 10, 10, 0.5);
+  --metal-l-rim-soft: rgba(10, 10, 10, 0.16);
+  --metal-l-rim-shade: rgba(255, 255, 255, 0.5);
   --metal-l-brush: rgba(0, 0, 0, 0.07);
 
   --sphere-rim: rgba(255, 255, 255, 0.5);
@@ -336,6 +340,8 @@
   --metal-shade: var(--metal-l-shade);
   --metal-glow: var(--metal-l-glow);
   --metal-rim: var(--metal-l-rim);
+  --metal-rim-soft: var(--metal-l-rim-soft);
+  --metal-rim-shade: var(--metal-l-rim-shade);
   --metal-brush: var(--metal-l-brush);
 }
 
@@ -350,6 +356,8 @@
   --metal-shade: var(--metal-d-shade);
   --metal-glow: var(--metal-d-glow);
   --metal-rim: var(--metal-d-rim);
+  --metal-rim-soft: var(--metal-d-rim-soft);
+  --metal-rim-shade: var(--metal-d-rim-shade);
   --metal-brush: var(--metal-d-brush);
 }
 
@@ -368,6 +376,10 @@
     --metal-shade: var(--metal-d-shade);
     --metal-glow: var(--metal-d-glow);
     --metal-rim: var(--metal-d-rim);
+    --metal-rim-soft: var(--metal-d-rim-soft);
+    --metal-rim-shade: var(--metal-d-rim-shade);
+  --metal-rim-soft: var(--metal-d-rim-soft);
+  --metal-rim-shade: var(--metal-d-rim-shade);
     --metal-brush: var(--metal-d-brush);
   }
 
@@ -382,6 +394,10 @@
     --metal-shade: var(--metal-l-shade);
     --metal-glow: var(--metal-l-glow);
     --metal-rim: var(--metal-l-rim);
+    --metal-rim-soft: var(--metal-l-rim-soft);
+    --metal-rim-shade: var(--metal-l-rim-shade);
+  --metal-rim-soft: var(--metal-l-rim-soft);
+  --metal-rim-shade: var(--metal-l-rim-shade);
     --metal-brush: var(--metal-l-brush);
   }
 }

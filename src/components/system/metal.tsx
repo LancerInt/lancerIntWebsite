@@ -31,12 +31,28 @@ import { cn } from "@/lib/utils";
    the wrapper, where it sees the already-masked result and
    traces the real silhouette.
 
-   THE RIM IS THE POINT
+   THE RIM IS DIRECTIONAL
    A metal object against a flat ground needs an edge or it
-   dissolves into the background. Two stacked hard drop-shadows
-   in --metal-rim give a crisp outline that follows the glyph:
-   near-white on a dark ground, near-black on a light one, since
-   a white rim on an ivory page is no rim at all.
+   dissolves into the background — but the edge has to come from
+   somewhere.
+
+   The first version drew a uniform outline all the way round.
+   That lit both sides of every interior cut equally, so the
+   diagonal through the monogram and the gap between the two
+   letters came out as hard black strokes framed in white: the
+   negative space read as drawn-on lines rather than as the
+   spaces between parts of one object.
+
+   A cut in metal is lit on the side facing the light and
+   shadowed on the other. So the bright rim is offset toward the
+   light, a much fainter one goes all the way round to keep the
+   away-side from disappearing, and a dark edge sits opposite.
+   The same cut now reads as a bevel, and the ground showing
+   through it blends instead of announcing itself.
+
+   Rim colours invert with the ground: near-white on a dark one,
+   near-black on a light one, since a white rim on an ivory page
+   is no rim at all.
 
    NO DISC. Nothing here may use a `rounded-full` glow element —
    a circle whose gradient fades out before its own edge draws a
@@ -115,6 +131,13 @@ export function MetalObject({
      same 2px outline as a 360px monogram and reads as a sticker. */
   const rim = Math.max(0.6, size / 230);
 
+  /* Direction the light comes from. Biased up-left so the object
+     is still modelled when the pointer has not moved and under
+     reduced motion, where p stays at the origin. */
+  const dirX = p.x * 0.75 - 0.3;
+  const dirY = p.y * 0.75 - 0.5;
+  const lit = rim * 2.2;
+
   const layer = {
     maskImage: mask,
     WebkitMaskImage: mask,
@@ -160,8 +183,9 @@ export function MetalObject({
           className="absolute inset-0"
           style={{
             filter: `
-              drop-shadow(0 0 ${rim}px var(--metal-rim))
-              drop-shadow(0 0 ${rim}px var(--metal-rim))
+              drop-shadow(${dirX * lit}px ${dirY * lit}px ${rim * 0.9}px var(--metal-rim))
+              drop-shadow(${-dirX * lit}px ${-dirY * lit}px ${rim * 1.1}px var(--metal-rim-shade))
+              drop-shadow(0 0 ${rim * 0.7}px var(--metal-rim-soft))
               drop-shadow(${-p.x * 14}px ${-p.y * 9 + 12}px ${size * 0.16}px var(--metal-glow))
             `,
             transition: ease,
@@ -213,7 +237,7 @@ export function MetalObject({
           <div
             style={{
               ...layer,
-              opacity: 0.5,
+              opacity: 0.38,
               background: `radial-gradient(circle at ${100 - lx}% ${100 - ly}%, var(--metal-shade) 0%, transparent 56%)`,
               transition: ease,
             }}
