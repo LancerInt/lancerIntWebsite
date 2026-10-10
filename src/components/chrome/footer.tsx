@@ -36,13 +36,37 @@ export function Footer() {
               {siteConfig.statement}
             </p>
 
-            {hasContactDetails && siteConfig.contact.email ? (
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="mt-5 inline-block text-[0.875rem] text-[var(--surface-muted)] underline decoration-[var(--surface-rule)] underline-offset-4 transition-colors hover:text-[var(--surface-fg)] hover:decoration-[var(--surface-fg)]"
-              >
-                {siteConfig.contact.email}
-              </a>
+            {hasContactDetails ? (
+              <div className="mt-5 space-y-2 text-[0.875rem]">
+                {siteConfig.contact.addressLines.length ? (
+                  <address className="leading-[1.6] text-[var(--surface-muted)] not-italic">
+                    {siteConfig.contact.addressLines.map((line) => (
+                      <span key={line} className="block">
+                        {line}
+                      </span>
+                    ))}
+                  </address>
+                ) : null}
+
+                <div className="flex flex-wrap gap-x-5 gap-y-1">
+                  {siteConfig.contact.email ? (
+                    <a
+                      href={`mailto:${siteConfig.contact.email}`}
+                      className="text-[var(--surface-muted)] underline decoration-[var(--surface-rule)] underline-offset-4 transition-colors hover:text-[var(--surface-fg)] hover:decoration-[var(--surface-fg)]"
+                    >
+                      {siteConfig.contact.email}
+                    </a>
+                  ) : null}
+                  {siteConfig.contact.phone ? (
+                    <a
+                      href={`tel:${siteConfig.contact.phoneHref}`}
+                      className="text-[var(--surface-muted)] underline decoration-[var(--surface-rule)] underline-offset-4 transition-colors hover:text-[var(--surface-fg)] hover:decoration-[var(--surface-fg)]"
+                    >
+                      {siteConfig.contact.phone}
+                    </a>
+                  ) : null}
+                </div>
+              </div>
             ) : null}
           </div>
 

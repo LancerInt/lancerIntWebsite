@@ -3,16 +3,16 @@
    ------------------------------------------------------------
    Deliberately sparse.
 
-   Rev 3 carried a phone number, two email addresses, an office
-   address and three social links, all invented placeholders
-   pointing at "#". The brief is explicit: show verified contact
-   details and social accounts only when they exist, and never
-   create a dead link or a fictional account.
+   An earlier revision carried a phone number, two email
+   addresses, an office address and three social links, all
+   invented and all pointing at "#". The rule has not changed:
+   show a detail only when it is real, and never create a dead
+   link or a fictional account.
 
-   So they are gone. The contact form is the one real channel,
-   and it is honest about where it goes. Fill `contact` and
-   `social` in when the real values are known — every component
-   that renders them already checks whether they are present.
+   `contact` is now filled with verified details. `social` is
+   still empty, and the footer renders nothing for it until an
+   account actually exists — an entry with an empty href is
+   skipped rather than rendered as a dead link.
    ============================================================ */
 
 export const siteConfig = {
@@ -35,15 +35,32 @@ export const siteConfig = {
   url: "https://lancers.in",
 
   /**
-   * Every field here is optional and currently empty. Components
-   * render a contact row only when its value is a non-empty
-   * string, so filling one in is the whole job — no component
-   * needs editing.
+   * Verified details. Components render a row only when its
+   * value is a non-empty string, so clearing one hides it again
+   * without touching a component.
+   *
+   * `phone` is the display form and `phoneHref` the dialable
+   * one — a tel: URI has to be digits and a leading +, with no
+   * spaces, or some dialers drop everything after the gap.
    */
   contact: {
-    email: "",
-    phone: "",
-    addressLines: [] as string[],
+    email: "info@lancers.in",
+    phone: "+91 96777 07080",
+    phoneHref: "+919677707080",
+    addressLines: [
+      "D.No. 310U, Muthuram Complex, 2nd Floor",
+      "Brough Road",
+      "Erode 638001",
+      "Tamil Nadu, India",
+    ] as string[],
+    /** Structured for schema.org and for any future map link. */
+    postal: {
+      street: "D.No. 310U, Muthuram Complex, 2nd Floor, Brough Road",
+      locality: "Erode",
+      region: "Tamil Nadu",
+      postalCode: "638001",
+      country: "IN",
+    },
   },
 
   /**

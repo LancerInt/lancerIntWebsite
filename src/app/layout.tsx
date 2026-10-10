@@ -116,6 +116,38 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Organization data, built from siteConfig so it cannot
+            drift from what the page itself shows. Worth having
+            now that the address and phone are verified — before
+            that there was nothing truthful to put in it, and a
+            fabricated LocalBusiness entry is worse than none.
+
+            No aggregateRating, no founding date, no employee
+            count: every one of those would be invented, and
+            search engines treat invented markup as spam. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: siteConfig.legal.entity,
+              url: siteConfig.url,
+              description: siteConfig.description,
+              email: siteConfig.contact.email,
+              telephone: siteConfig.contact.phoneHref,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: siteConfig.contact.postal.street,
+                addressLocality: siteConfig.contact.postal.locality,
+                addressRegion: siteConfig.contact.postal.region,
+                postalCode: siteConfig.contact.postal.postalCode,
+                addressCountry: siteConfig.contact.postal.country,
+              },
+            }),
+          }}
+        />
+
         <a href="#main" className="sr-focusable z-300 bg-[var(--surface-fg)] px-4 py-3 font-display text-sm font-medium text-[var(--surface-bg)]">
           Skip to main content
         </a>

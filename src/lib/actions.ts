@@ -1,6 +1,7 @@
 "use server";
 
 import type { EnquiryField, EnquiryState } from "./enquiry";
+import { siteConfig } from "./site-config";
 
 /* ============================================================
    ENQUIRY SUBMISSION
@@ -12,6 +13,8 @@ import type { EnquiryField, EnquiryState } from "./enquiry";
    submission is not working. So the success state says, in
    plain words, that nothing was sent — which is annoying to
    read and far better than losing someone's enquiry silently.
+   It now names the real address to use instead, so a dead end
+   becomes a redirect rather than a shrug.
 
    TO GO LIVE: replace the marked block with a real transport.
    The validated `values` object is everything it needs, and
@@ -72,7 +75,7 @@ export async function submitEnquiry(
   return {
     status: "success",
     message:
-      "Your details passed validation, but this form is not connected to a mailbox yet — so nothing has actually been sent. Please use a direct channel until this is wired up.",
+      `Your details passed validation, but this form is not connected to a mailbox yet — so nothing has actually been sent. Please email ${siteConfig.contact.email} or call ${siteConfig.contact.phone} and we will pick it up from there.`,
     errors: {},
     values: {},
   };

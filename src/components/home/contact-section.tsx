@@ -64,8 +64,30 @@ export function ContactSection() {
                 {siteConfig.contact.phone ? (
                   <div>
                     <dt className="text-[0.75rem] text-[var(--surface-muted)]">Phone</dt>
-                    <dd className="mt-1 text-[0.9375rem] text-[var(--surface-fg)]">
-                      {siteConfig.contact.phone}
+                    <dd className="mt-1">
+                      {/* tel: wants digits and a leading +, with no
+                          spaces — the display form keeps the spaces. */}
+                      <a
+                        href={`tel:${siteConfig.contact.phoneHref}`}
+                        className="text-[0.9375rem] text-[var(--surface-fg)] underline decoration-[var(--surface-rule)] underline-offset-4 hover:decoration-[var(--surface-fg)]"
+                      >
+                        {siteConfig.contact.phone}
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
+
+                {siteConfig.contact.addressLines.length ? (
+                  <div>
+                    <dt className="text-[0.75rem] text-[var(--surface-muted)]">Office</dt>
+                    <dd className="mt-1">
+                      <address className="text-[0.9375rem] leading-[1.6] text-[var(--surface-fg)] not-italic">
+                        {siteConfig.contact.addressLines.map((line) => (
+                          <span key={line} className="block">
+                            {line}
+                          </span>
+                        ))}
+                      </address>
                     </dd>
                   </div>
                 ) : null}
