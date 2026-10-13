@@ -152,6 +152,34 @@ const paths: Record<IconKey, React.ReactNode> = {
       <circle cx="12" cy="10.5" r="2.5" />
     </>
   ),
+  calendar: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="15" />
+      <path d="M3.5 10h17" />
+      <path d="M8 3.5v4" />
+      <path d="M16 3.5v4" />
+    </>
+  ),
+  flask: (
+    <>
+      <path d="M9.5 3.5h5" />
+      <path d="M10.5 3.5v6L5.5 18a2 2 0 0 0 1.8 2.5h9.4A2 2 0 0 0 18.5 18l-5-8.5v-6" />
+      <path d="M8 14.5h8" />
+    </>
+  ),
+  cart: (
+    <>
+      <path d="M3 4.5h2.5l2.2 10h9.1l2.2-7.5H6.4" />
+      <circle cx="9" cy="19" r="1.4" />
+      <circle cx="17" cy="19" r="1.4" />
+    </>
+  ),
+  factory: (
+    <>
+      <path d="M3.5 20.5v-9l5.5 3.5v-3.5l5.5 3.5v-3.5l5.5 3.5v5.5z" />
+      <path d="M6.5 11.5v-8h3v8" />
+    </>
+  ),
 };
 
 export function Icon({

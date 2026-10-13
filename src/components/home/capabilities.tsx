@@ -3,7 +3,7 @@ import { CursorIcon } from "@/components/system/cursor-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { Icon } from "@/components/icons";
-import { HeroWindow } from "@/components/system/hero-system";
+import { AppDemo } from "@/components/system/app-demo";
 import { capabilities, capabilitiesIntro } from "@/lib/content";
 
 /* ============================================================
@@ -97,17 +97,23 @@ export function Capabilities() {
       </ol>
 
       {/* --- what one of these looks like ----------------
-          The CRM view, moved down from the hero. It belongs
-          here: beside the capability list it is an example of
-          the first item rather than decoration. */}
+          Two illustrative systems, beside the capability list,
+          so they read as examples of the items above rather
+          than as decoration.
+
+          They are operable on purpose. A static screenshot
+          shows that someone can draw a dashboard; letting a
+          visitor move around inside one shows it was built,
+          which is the claim this section is making. */}
       <div className="mt-20 lg:mt-28">
         <Reveal distance={16}>
-          <HeroWindow />
+          <AppDemo />
         </Reveal>
         <Reveal delay={120}>
-          <p className="mt-4 text-center text-[0.75rem] text-[var(--surface-muted)]">
-            An illustrative CRM pipeline, showing the kind of system we build.
-            Not a commercial product, and the data is invented.
+          <p className="mx-auto mt-4 max-w-[62ch] text-center text-[0.75rem] leading-[1.6] text-[var(--surface-muted)]">
+            Illustrative interfaces, showing the kind of system we build. Not
+            commercial products — every figure, account and order on them is
+            invented, and nothing here connects to a real system.
           </p>
         </Reveal>
       </div>

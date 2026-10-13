@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "audit:layout": "node scripts/audit.mjs",
     "audit:scheme": "node scripts/audit-scheme.mjs",
-    "test:select": "node scripts/test-select.mjs"
+    "test:select": "node scripts/test-select.mjs",
+    "test:app": "node scripts/test-app-demo.mjs",
+    "test:app-contrast": "node scripts/test-app-contrast.mjs"
   },
   "dependencies": {
     "motion": "^11.18.2",

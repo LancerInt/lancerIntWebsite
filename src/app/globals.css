@@ -757,3 +757,183 @@
     transform: none;
   }
 }
+
+/* ============================================================
+   DEMO APPLICATION
+   ------------------------------------------------------------
+   The illustrative dashboards carry a small palette of their
+   own. They have to: a product screenshot that used the site's
+   monochrome tokens would not look like software, and the whole
+   point of the panel is to show what we build.
+
+   It is scoped to .app-demo so none of it leaks into the page.
+
+   THE RAIL STAYS DARK IN BOTH SCHEMES
+   As it does in the designs, and as most real dashboards do.
+   The canvas and cards follow prefers-color-scheme, so in a
+   light page you get the dark-rail/light-canvas app from the
+   designs, and in a dark page the whole window goes dark.
+
+   EVERY PAIR BELOW WAS CHOSEN TO PASS AA, NOT COPIED
+   The source designs put white text on a mid green and a mid
+   blue, which measure about 3.4:1 — fine for a static picture,
+   not for text a visitor can read and click. The solid accents
+   here are a step darker so white clears 4.5:1, and `--app-link`
+   is separate from `--app-accent` for the same reason: the
+   accent is for graphics, where 3:1 is the bar, and the link is
+   for 14px text, where it is not.
+   ============================================================ */
+
+.app-demo {
+  /* --- the rail: fixed, dark, both schemes --------------- */
+  --app-rail: #0d1117;
+  --app-rail-fg: #ffffff;
+  --app-rail-muted: #9099a6;
+  --app-rail-rule: #1e2630;
+  --app-rail-hover: #161d27;
+
+  /* --- the canvas: follows the page ---------------------- */
+  --app-canvas: #f5f6f8;
+  --app-card: #ffffff;
+  --app-fg: #111827;
+  --app-muted: #5b6472;
+  --app-rule: #e3e6ea;
+  --app-track: #e8ebef;
+  --app-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+
+  /* --- status, as fill + label, never colour alone ------- */
+  --pill-ok-bg: #dcfce7;
+  --pill-ok-fg: #14532d;
+  --pill-warn-bg: #fef3c7;
+  --pill-warn-fg: #854d0e;
+  --pill-info-bg: #dbeafe;
+  --pill-info-fg: #1e3a8a;
+  --pill-neutral-bg: #eceef1;
+  --pill-neutral-fg: #374151;
+
+  --num-pos: #15803d;
+  --num-neg: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-demo {
+    --app-canvas: #0e0e0e;
+    --app-card: #171717;
+    --app-fg: #f3f4f6;
+    --app-muted: #9aa3af;
+    --app-rule: #272727;
+    --app-track: #242424;
+    --app-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+    --pill-ok-bg: #0f2e1b;
+    --pill-ok-fg: #86efac;
+    --pill-warn-bg: #3a2a0c;
+    --pill-warn-fg: #fcd34d;
+    --pill-info-bg: #10264a;
+    --pill-info-fg: #93c5fd;
+    --pill-neutral-bg: #262626;
+    --pill-neutral-fg: #d4d4d4;
+
+    --num-pos: #4ade80;
+    --num-neg: #f87171;
+  }
+}
+
+/* --- the two accents ------------------------------------- */
+
+[data-app="emerald"] {
+  --app-accent: #16a34a;        /* graphics: lines, bars, fills */
+  --app-accent-solid: #15803d;  /* solid behind white text, 4.8:1 */
+  --app-accent-soft: #dcfce7;   /* tinted icon tile */
+  --app-accent-ink: #14532d;    /* on the tint, 8.5:1 */
+  --app-link: #15803d;          /* 14px link text, 4.8:1 */
+  --app-brand: #4ade80;         /* wordmark on the dark rail */
+}
+
+[data-app="azure"] {
+  --app-accent: #2563eb;
+  --app-accent-solid: #1d4ed8;  /* 6.3:1 behind white */
+  --app-accent-soft: #dbeafe;
+  --app-accent-ink: #1e3a8a;    /* 8.6:1 */
+  --app-link: #1d4ed8;          /* 6.3:1 */
+  --app-brand: #60a5fa;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-app="emerald"] {
+    --app-accent: #22c55e;
+    --app-accent-soft: #0f2e1b;
+    --app-accent-ink: #86efac;
+    --app-link: #4ade80;
+  }
+
+  [data-app="azure"] {
+    --app-accent: #3b82f6;
+    --app-accent-soft: #10264a;
+    --app-accent-ink: #93c5fd;
+    --app-link: #60a5fa;
+  }
+}
+
+/* --- motion ---------------------------------------------- */
+/* All of these are collapsed by the global reduced-motion rule
+   above, and every one uses `both` fill so it lands on its end
+   state rather than disappearing. */
+
+@keyframes app-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes app-bar-rise {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes app-line-draw {
+  from {
+    stroke-dashoffset: var(--len);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes app-area-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes app-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes app-dot-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
