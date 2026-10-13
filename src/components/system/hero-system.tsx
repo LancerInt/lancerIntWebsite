@@ -1,8 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import { demoInterface as ui } from "@/lib/demo-interface";
-import { usePrefersReducedMotion } from "@/components/ui/reveal";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
@@ -18,82 +14,43 @@ import { cn } from "@/lib/utils";
    must be visibly separated from actual available offerings,
    and a dashboard with no label reads as a product.
 
-   CURSOR 3D
-   The window sits in a perspective container and rotates on
-   both axes under the pointer — real CSS 3D, not a flat
-   translate. Two reasons it is done this way:
+   FLAT AND STILL, ON PURPOSE
+   An earlier version tilted this on both axes under the
+   pointer. It was dropped: the thing being shown here is an
+   interface, and software does not sway when you move the
+   mouse near it. The tilt sheared the type a little at every
+   angle and invited the reader to play with the panel instead
+   of reading what is in it.
 
-   · No dependency. A WebGL canvas for one tilting rectangle
-     would be a megabyte of runtime for an effect that is six
-     lines of transform.
-   · It is interruptible and cheap. One rAF-throttled
-     pointermove writing one transform, composited off the
-     main thread, nothing animating at rest.
+   The cursor-lit metal objects elsewhere on the page are
+   objects, and may behave like objects. This is a screen.
 
-   Rotation is capped at 5°. Past roughly 7° the text inside
-   starts to shear visibly and the interface stops reading as
-   software. Mouse only, and off entirely under reduced motion.
+   Removing it also took the whole client bundle with it —
+   the rotation state was the only reason this component ran
+   on the client at all.
+
+   It keeps the "Illustrative" tag in its own chrome. That tag
+   is not decoration: the brief is clear that mockups must be
+   visibly separated from actual offerings, and a dashboard
+   with no label reads as a product.
    ============================================================ */
-
-/** Degrees of rotation at the far edge of the container. */
-const TILT = 5;
 
 const stageTotal = ui.stages.reduce((n, s) => n + s.count, 0);
 
 export function HeroWindow() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const reduce = usePrefersReducedMotion();
-
-  useEffect(() => {
-    const node = wrapRef.current;
-    if (!node || reduce) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    let frame = 0;
-    const onMove = (e: PointerEvent) => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        const r = node.getBoundingClientRect();
-        setTilt({
-          x: (e.clientX - r.left) / r.width - 0.5,
-          y: (e.clientY - r.top) / r.height - 0.5,
-        });
-      });
-    };
-    const onLeave = () => setTilt({ x: 0, y: 0 });
-
-    node.addEventListener("pointermove", onMove, { passive: true });
-    node.addEventListener("pointerleave", onLeave);
-    return () => {
-      node.removeEventListener("pointermove", onMove);
-      node.removeEventListener("pointerleave", onLeave);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [reduce]);
-
   return (
     <div
-      ref={wrapRef}
       className="relative w-full"
       role="img"
       aria-label={`Illustrative CRM pipeline interface: ${ui.tiles
         .map((t) => `${t.label} ${t.value}`)
         .join(", ")}, with enquiries across ${ui.stages.length} stages.`}
-      style={{ perspective: "1400px", perspectiveOrigin: "50% 50%" }}
     >
       <div
         data-surface="graphite"
         /* 10.5rem, not 9 — "Customer pipeline" truncated at the
            narrower sidebar width */
         className="panel grid overflow-hidden rounded-2xl sm:grid-cols-[10.5rem_minmax(0,1fr)]"
-        style={{
-          transform: `rotateY(${tilt.x * TILT * 2}deg) rotateX(${-tilt.y * TILT * 2}deg) translateZ(0)`,
-          transformStyle: "preserve-3d",
-          transition: "transform 600ms var(--ease-out-quint)",
-          willChange: "transform",
-        }}
       >
         {/* --- sidebar -------------------------------- */}
         <div className="hidden flex-col border-r border-[var(--surface-rule)] bg-[var(--surface-sunken)]/45 p-2.5 sm:flex">
@@ -170,9 +127,11 @@ export function HeroWindow() {
                   style={{
                     width: `${(s.count / stageTotal) * 100}%`,
                     transformOrigin: "left",
-                    animation: reduce
-                      ? undefined
-                      : `coverage-in 600ms var(--ease-out-quint) ${200 + i * 90}ms both`,
+                    /* No JS reduced-motion gate: the global
+                       prefers-reduced-motion rule collapses every
+                       animation to 0.001ms, and `both` fill means
+                       this lands on its end state immediately. */
+                    animation: `coverage-in 600ms var(--ease-out-quint) ${200 + i * 90}ms both`,
                   }}
                 />
               ))}
