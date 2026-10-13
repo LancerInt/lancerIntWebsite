@@ -7,6 +7,7 @@ import { initialEnquiryState, type EnquiryField } from "@/lib/enquiry";
 import { helpTopics } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "@/components/icons";
+import { Select } from "@/components/ui/select";
 
 /* ============================================================
    CONTACT FORM
@@ -40,9 +41,13 @@ export function ContactForm({ className }: { className?: string }) {
 
   useEffect(() => {
     if (state.status !== "error" || errorEntries.length === 0) return;
-    formRef.current
-      ?.querySelector<HTMLElement>(`[name="${errorEntries[0][0]}"]`)
-      ?.focus();
+    const field = errorEntries[0][0];
+    const node =
+      formRef.current?.querySelector<HTMLElement>(`[data-field="${field}"]`) ??
+      formRef.current?.querySelector<HTMLElement>(
+        `[name="${field}"]:not([type="hidden"])`,
+      );
+    node?.focus();
   }, [state, errorEntries]);
 
   if (state.status === "success") {
@@ -230,18 +235,22 @@ const controlClass =
 
 function Label({
   htmlFor,
+  id,
   label,
   required,
   hint,
 }: {
   htmlFor: string;
+  /* The custom select is a <button>, which `for` cannot point
+     at, so it is named by this id instead. */
+  id?: string;
   label: string;
   required?: boolean;
   hint?: string;
 }) {
   return (
     <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-      <label htmlFor={htmlFor} className="text-[0.8125rem] font-medium">
+      <label htmlFor={htmlFor} id={id} className="text-[0.8125rem] font-medium">
         {label}
         {required ? (
           <span
@@ -360,46 +369,20 @@ function SelectField({
   error?: string;
   defaultValue?: string;
 }) {
+  const labelId = `${id}-label`;
   return (
     <div>
-      <Label htmlFor={id} label={label} required={required} />
-      <div className="relative">
-        <select
-          id={id}
-          name={name}
-          required={required}
-          defaultValue={defaultValue ?? ""}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={error ? errorId : undefined}
-          className={cn(
-            controlClass,
-            "appearance-none pr-10",
-            error
-              ? "border-[var(--surface-accent)]"
-              : "border-[var(--surface-rule)]",
-          )}
-        >
-          <option value="" disabled>
-            {placeholder}
-          </option>
-          {options.map((o) => (
-            <option key={o} value={o}>
-              {o}
-            </option>
-          ))}
-        </select>
-        <svg
-          viewBox="0 0 16 16"
-          className="pointer-events-none absolute top-1/2 right-3.5 size-3.5 -translate-y-1/2 opacity-50"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          aria-hidden="true"
-        >
-          <path d="M3.5 6.5 8 11l4.5-4.5" />
-        </svg>
-      </div>
+      <Label htmlFor={id} id={labelId} label={label} required={required} />
+      <Select
+        id={id}
+        name={name}
+        labelledBy={labelId}
+        options={options}
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        invalid={Boolean(error)}
+        describedBy={error ? errorId : undefined}
+      />
       <FieldError id={errorId} message={error} />
     </div>
   );
