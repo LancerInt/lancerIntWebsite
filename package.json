@@ -12,7 +12,8 @@
     "audit:scheme": "node scripts/audit-scheme.mjs",
     "test:select": "node scripts/test-select.mjs",
     "test:app": "node scripts/test-app-demo.mjs",
-    "test:app-contrast": "node scripts/test-app-contrast.mjs"
+    "test:app-contrast": "node scripts/test-app-contrast.mjs",
+    "check:dns": "node scripts/check-dns.mjs"
   },
   "dependencies": {
     "motion": "^11.18.2",
