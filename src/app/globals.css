@@ -245,6 +245,18 @@
 
   --bloom: rgba(14, 14, 14, 0.06);
 
+  /* --- page width ------------------------------------------
+     The content column, set once. It was 1280px hardcoded into
+     four separate files, which is both a drift risk and too
+     narrow on a real desktop: at 1920 it left a third of the
+     screen empty and at 2560 it left half.
+
+     1536 keeps the measure sane — body copy is capped in `ch`
+     at the block level anyway, so widening this widens the grid
+     rather than the line length — while filling about 80% of a
+     1920 screen instead of 67%. ------------------------------ */
+  --page-max: 1536px;
+
   /* --- Brushed metal ---------------------------------------
      These are keyed to the GROUND an object stands on, not to
      the colour scheme, and so they are declared once. A dark

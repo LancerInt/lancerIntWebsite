@@ -56,7 +56,7 @@ export default function AboutPage() {
         data-surface="ink"
         className="top-light relative isolate overflow-hidden"
       >
-        <div className="mx-auto w-full max-w-[1280px] px-5 pt-32 pb-20 sm:px-6 sm:pt-36 lg:px-10 lg:pt-40 lg:pb-28">
+        <div className="mx-auto w-full max-w-[var(--page-max)] px-5 pt-32 pb-20 sm:px-6 sm:pt-36 lg:px-10 lg:pt-40 lg:pb-28 xl:px-14">
           <div className="grid gap-x-16 gap-y-10 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <Reveal distance={10}>
